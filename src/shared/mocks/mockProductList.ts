@@ -1,24 +1,23 @@
 import { Product } from "../interfaces/product.interface";
 
-export const ProductListMockData: Product[] = [
+export const ProductListMockData
+: Product[] = [
     {
         item: "A",
-        unitPrice: 0.50,
-        specialPrice: "3 for £1.30"
+        unitPrice: 50,
+        specialPrice: "3 for 130"
     },
     {
         item: "B",
-        unitPrice: 0.30,
-        specialPrice: "2 for £0.45"
+        unitPrice: 30,
+        specialPrice: "2 for 45"
     },
     {
         item: "C",
-        unitPrice: 0.20,
-        specialPrice: null
+        unitPrice: 20
     },
     {
         item: "D",
-        unitPrice: 0.15,
-        specialPrice: null
+        unitPrice: 15
     }
 ]
