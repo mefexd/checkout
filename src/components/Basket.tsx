@@ -43,7 +43,13 @@ export const Basket = () => {
             <div className="basket-item" key={product.item}>
               <h1>{product.item}</h1>
               <p>{formatCurrency(product.unitPrice)}</p>
-              {product.specialPrice ? <p>{product.specialPrice}</p> : "-"}
+              {product.specialPrice ? (
+                <span>
+                  <p className="special-offer">{product.specialPrice}</p>
+                </span>
+              ) : (
+                "-"
+              )}
               <ProductCounter
                 product={product}
                 addToBasket={handleBasketUpdate}

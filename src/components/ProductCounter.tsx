@@ -80,7 +80,7 @@ export const ProductCounter = ({
           alt="minus icon"
         />
       </button>
-      <span>{numberOfProduct}</span>
+      <span className="product-count">{numberOfProduct}</span>
       <button onClick={increaseCount} name="add item">
         <img
           className="counter-icon add-counter-icon"
@@ -88,7 +88,7 @@ export const ProductCounter = ({
           alt="plus icon"
         />
       </button>
-      <span>£{totalCostOfProduct}</span>
+      <span className="individual-product-cost">£{totalCostOfProduct}</span>
     </div>
   );
 };
