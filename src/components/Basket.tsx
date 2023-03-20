@@ -1,14 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import formatCurrency from "../shared/helpers/format-currency";
+import useIsFirstRender from "../shared/hooks/useIsFirstRender";
 import { BasketProduct, Product } from "../shared/interfaces/product.interface";
 import { ProductCounter } from "./ProductCounter";
 
-type BasketProps = {
-  BasketItems: Product[];
-};
-
-export const Basket = ({ BasketItems }: BasketProps) => {
+export const Basket = () => {
   const [basketTotal, setBasketTotal] = useState<BasketProduct[]>([]);
+  const [productList, setProductList] = useState<Product[]>([]);
+  const isFirst = useIsFirstRender();
+
+  const fetchData = async () => {
+    const response = await fetch("/services/mockProductListJson.json");
+    const data = await response.json();
+    setProductList(data.products);
+  };
 
   const grandTotal = basketTotal.reduce((acc, val) => {
     return (acc += val.totalCost);
@@ -16,7 +21,6 @@ export const Basket = ({ BasketItems }: BasketProps) => {
 
   function handleBasketUpdate(addition: BasketProduct) {
     let updatedBasket: BasketProduct[];
-    console.log(basketTotal);
     if (basketTotal.some((item) => item.item === addition.item)) {
       updatedBasket = basketTotal.map((item) =>
         item.item === addition.item ? addition : item
@@ -27,11 +31,15 @@ export const Basket = ({ BasketItems }: BasketProps) => {
     }
   }
 
+  useEffect(() => {
+    if (isFirst) fetchData();
+  });
+
   return (
     <>
       <div className="basket">
-        {BasketItems &&
-          BasketItems.map((product) => (
+        {productList &&
+          productList.map((product: Product) => (
             <div className="basket-item" key={product.item}>
               <h1>{product.item}</h1>
               <p>{formatCurrency(product.unitPrice)}</p>
