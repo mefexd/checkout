@@ -3,3 +3,7 @@ export interface Product {
   unitPrice: number;
   specialPrice?: string;
 }
+
+export interface BasketProduct extends Product {
+  totalCost: number;
+}

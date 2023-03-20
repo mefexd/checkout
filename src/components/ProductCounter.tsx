@@ -1,22 +1,37 @@
 import { useEffect, useState } from "react";
 import { Product } from "../shared/interfaces/product.interface";
+import useIsFirstRender from "../shared/hooks/useIsFirstRender";
 
 type ProductCounterProps = {
   product: Product;
+  addToBasket: Function;
 };
 
-export const ProductCounter = ({ product }: ProductCounterProps) => {
+export const ProductCounter = ({
+  product,
+  addToBasket,
+}: ProductCounterProps) => {
   const [numberOfProduct, setNumberofProduct] = useState(0);
   const [totalCostOfProduct, setTotalCostOfProduct] = useState(0);
+  const isFirst = useIsFirstRender();
 
   useEffect(() => {
-    const totalCost = calculatePrice(
-      numberOfProduct,
-      product.unitPrice,
-      product.specialPrice
-    );
+    if (!isFirst) {
+      const totalCost = calculatePrice(
+        numberOfProduct,
+        product.unitPrice,
+        product.specialPrice
+      );
 
-    setTotalCostOfProduct(totalCost);
+      setTotalCostOfProduct(totalCost);
+
+      const productForBasket = {
+        ...product,
+        totalCost: totalCost,
+      };
+      console.log(productForBasket, "product for basket...");
+      addToBasket(productForBasket);
+    }
   }, [numberOfProduct]);
 
   const increaseCount = () => {
@@ -53,16 +68,27 @@ export const ProductCounter = ({ product }: ProductCounterProps) => {
   };
 
   return (
-    <>
+    <div className="counter-display">
       <button
         onClick={decreaseCount}
         disabled={numberOfProduct <= 0 ? true : false}
+        name="remove item"
       >
-        -
+        <img
+          className="counter-icon remove-counter-icon"
+          src={"/public/images/circle-minus.svg"}
+          alt="minus icon"
+        />
       </button>
       <span>{numberOfProduct}</span>
-      <button onClick={increaseCount}>+</button>
-      <span>Total: £{totalCostOfProduct}</span>
-    </>
+      <button onClick={increaseCount} name="add item">
+        <img
+          className="counter-icon add-counter-icon"
+          src={"/public/images/circle-plus.svg"}
+          alt="plus icon"
+        />
+      </button>
+      <span>£{totalCostOfProduct}</span>
+    </div>
   );
 };
