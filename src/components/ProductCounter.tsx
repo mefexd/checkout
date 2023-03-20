@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Product } from "../shared/interfaces/product.interface";
 import useIsFirstRender from "../shared/hooks/useIsFirstRender";
+import formatCurrency from "../shared/helpers/format-currency";
 
 type ProductCounterProps = {
   product: Product;
@@ -88,7 +89,9 @@ export const ProductCounter = ({
           alt="plus icon"
         />
       </button>
-      <span className="individual-product-cost">£{totalCostOfProduct}</span>
+      <span className="individual-product-cost">
+        {formatCurrency(totalCostOfProduct)}
+      </span>
     </div>
   );
 };
