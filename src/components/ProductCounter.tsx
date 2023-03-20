@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import { Product } from "../shared/interfaces/product.interface";
 
-export const ProductCounter = ({ item, unitPrice, specialPrice }: Product) => {
+type ProductCounterProps = {
+  product: Product;
+};
+
+export const ProductCounter = ({ product }: ProductCounterProps) => {
   const [numberOfProduct, setNumberofProduct] = useState(0);
   const [totalCostOfProduct, setTotalCostOfProduct] = useState(0);
 
   useEffect(() => {
-    setTotalCostOfProduct(
-      calculatePrice(numberOfProduct, unitPrice, specialPrice)
+    const totalCost = calculatePrice(
+      numberOfProduct,
+      product.unitPrice,
+      product.specialPrice
     );
+
+    setTotalCostOfProduct(totalCost);
   }, [numberOfProduct]);
 
   const increaseCount = () => {

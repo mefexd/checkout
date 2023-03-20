@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Product } from "../shared/interfaces/product.interface";
 import { ProductDisplay } from "./ProductDisplay";
 
@@ -9,7 +10,9 @@ export const ProductList = ({ ProductList }: ProductListProps) => {
   return (
     <>
       {ProductList &&
-        ProductList.map((product) => <ProductDisplay product={product} />)}
+        ProductList.map((product) => (
+          <ProductDisplay product={product} key={product.item} />
+        ))}
     </>
   );
 };

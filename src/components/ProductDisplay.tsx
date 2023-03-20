@@ -7,13 +7,12 @@ type ProductDisplayProps = {
 };
 
 export const ProductDisplay = ({ product }: ProductDisplayProps) => {
-  const [numberOfProduct, setNumberofProduct] = useState({});
   return (
     <div>
       <p>{product.item}</p>
       <p>{product.unitPrice}</p>
       {product.specialPrice && <p>{product.specialPrice}</p>}
-      <ProductCounter {...product} />
+      <ProductCounter product={product} />
     </div>
   );
 };
