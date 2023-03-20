@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import formatCurrency from "../shared/helpers/format-currency";
 import { BasketProduct, Product } from "../shared/interfaces/product.interface";
 import { ProductCounter } from "./ProductCounter";
 
@@ -22,7 +23,6 @@ export const Basket = ({ BasketItems }: BasketProps) => {
       );
       setBasketTotal(updatedBasket);
     } else {
-      console.log(addition, "addition....");
       setBasketTotal([...basketTotal, addition]);
     }
   }
@@ -34,7 +34,7 @@ export const Basket = ({ BasketItems }: BasketProps) => {
           BasketItems.map((product) => (
             <div className="basket-item" key={product.item}>
               <h1>{product.item}</h1>
-              <p>{product.unitPrice}</p>
+              <p>{formatCurrency(product.unitPrice)}</p>
               {product.specialPrice ? <p>{product.specialPrice}</p> : "-"}
               <ProductCounter
                 product={product}
@@ -43,7 +43,7 @@ export const Basket = ({ BasketItems }: BasketProps) => {
             </div>
           ))}
         <div className="checkout-display">
-          <h2>Total: £{grandTotal}</h2>
+          <h2>Total: {formatCurrency(grandTotal)}</h2>
         </div>
       </div>
     </>
