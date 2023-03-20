@@ -29,7 +29,7 @@ export const ProductCounter = ({
         ...product,
         totalCost: totalCost,
       };
-      console.log(productForBasket, "product for basket...");
+
       addToBasket(productForBasket);
     }
   }, [numberOfProduct]);
@@ -76,7 +76,7 @@ export const ProductCounter = ({
       >
         <img
           className="counter-icon remove-counter-icon"
-          src={"/public/images/circle-minus.svg"}
+          src={"/images/circle-minus.svg"}
           alt="minus icon"
         />
       </button>
@@ -84,7 +84,7 @@ export const ProductCounter = ({
       <button onClick={increaseCount} name="add item">
         <img
           className="counter-icon add-counter-icon"
-          src={"/public/images/circle-plus.svg"}
+          src={"/images/circle-plus.svg"}
           alt="plus icon"
         />
       </button>
